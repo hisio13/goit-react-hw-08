@@ -1,37 +1,33 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { fetchContacts, addContact, deleteContact } from './operations';
+import {
+    fetchContacts,
+    addContact,
+    deleteContact,
+    editContact,
+} from './operations';
 import { logout } from '../auth/operations';
 
 const contactsSlice = createSlice({
-  name: 'contacts',
-  initialState: {
-    items: [],
-    isLoading: false,
-    error: null,
-  },
-  extraReducers: builder =>
-    builder
-      .addCase(fetchContacts.pending, state => {
-        state.isLoading = true;
-        state.error = null;
-      })
-      .addCase(fetchContacts.fulfilled, (state, { payload }) => {
-        state.isLoading = false;
-        state.items = payload;
-      })
-      .addCase(fetchContacts.rejected, (state, { payload }) => {
-        state.isLoading = false;
-        state.error = payload;
-      })
-      .addCase(addContact.fulfilled, (state, { payload }) => {
-        state.items.push(payload);
-      })
-      .addCase(deleteContact.fulfilled, (state, { payload }) => {
-        state.items = state.items.filter(contact => contact.id !== payload.id);
-      })
-      .addCase(logout.fulfilled, state => {
-        state.items = [];
-      }),
+    name: 'contacts',
+    initialState: [],
+    extraReducers: builder => {
+        builder
+            .addCase(fetchContacts.fulfilled, (_, action) => {
+                return action.payload;
+            })
+            .addCase(addContact.fulfilled, (state, action) => {
+                state.push(action.payload);
+            })
+            .addCase(deleteContact.fulfilled, (state, action) => {
+                return state.filter(contact => contact.id !== action.payload);
+            })
+            .addCase(editContact.fulfilled, (state, action) => {
+                return state.map(contact =>
+                    contact.id === action.payload.id ? action.payload : contact
+                );
+            })
+            .addCase(logout.fulfilled, () => []);
+    },
 });
 
-export const contactsReducer = contactsSlice.reducer;
+export default contactsSlice.reducer;

@@ -1,0 +1,22 @@
+.contactsPage {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.contactsPage h1 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.contactFormWrapper {
+    width: 100%;
+    max-width: 500px;
+    margin-bottom: 20px;
+}
+
+.contactListWrapper {
+    width: 100%;
+    max-width: 500px;
+}

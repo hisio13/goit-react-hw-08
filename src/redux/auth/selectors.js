@@ -1,9 +1,3 @@
-import storage from 'redux-persist/lib/storage';
-
-const persistAuthConfig = {
-  key: 'auth',
-  storage,
-  whitelist: ['token'],
-};
-
-export default persistAuthConfig;
+export const selectUser = state => state.auth.user;
+export const selectIsLoggedIn = state => state.auth.isLoggedIn;
+export const selectIsRefreshing = state => state.auth.isRefreshing;

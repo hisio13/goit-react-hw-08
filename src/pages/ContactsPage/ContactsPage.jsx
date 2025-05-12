@@ -1,10 +1,9 @@
-import React, { useEffect } from 'react';
-import ContactForm from '../../components/ContactForm/ContactForm';
-import ContactList from '../../components/ContactList/ContactList';
-import SearchBox from '../../components/SearchBox/SearchBox';
+import { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { fetchContacts } from '../../redux/contacts/operations';
-import styles from './ContactsPage.module.css';
+import ContactForm from '../../components/ContactForm/ContactForm';
+import Filter from '../../components/Filter/Filter';
+import ContactList from '../../components/ContactList/ContactList';
 
 const ContactsPage = () => {
   const dispatch = useDispatch();
@@ -14,10 +13,10 @@ const ContactsPage = () => {
   }, [dispatch]);
 
   return (
-    <div className={styles.container}>
+    <div>
       <h2>Your Contacts</h2>
       <ContactForm />
-      <SearchBox />
+      <Filter />
       <ContactList />
     </div>
   );
